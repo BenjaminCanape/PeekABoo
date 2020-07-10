@@ -1,0 +1,21 @@
+{
+  "name": "PeekABoo",
+  "displayName": "PeekABoo",
+  "expo": {
+    "name": "PeekABoo",
+    "slug": "PeekABoo",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "bundleIdentifier": "PeekABoo"
+    },
+    "android": {
+      "package": "PeekABoo"
+    },
+    "entryPoint": "node_modules/expo/AppEntry.js",
+    "privacy": "public",
+    "sdkVersion": "36.0.0"
+  }
+}

@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "106535249041",
+    "firebase_url": "https://peek-a-boo---react-native.firebaseio.com",
+    "project_id": "peek-a-boo---react-native",
+    "storage_bucket": "peek-a-boo---react-native.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:106535249041:android:00435acad540b7c73c0b30",
+        "android_client_info": {
+          "package_name": "canape.benjamin.peekaboo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "106535249041-jiea3utpv7vmgcmbrpbt9qoe5nf5hr6g.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB2InzZ-nm2UDK1s-kQSQwPaCm8NNUtypk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "106535249041-jiea3utpv7vmgcmbrpbt9qoe5nf5hr6g.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
