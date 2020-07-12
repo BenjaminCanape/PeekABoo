@@ -9,6 +9,7 @@ function randomInteger(min: number, max: number) {
 export default class Game extends Component {
   camera: RNCamera | null = null;
   peopleDetected: boolean = false;
+  score: number = 0;
 
   constructor(props: any) {
     super(props);
@@ -30,19 +31,24 @@ export default class Game extends Component {
     this.peopleDetected = false;
   };
 
-  peekABoo = () => {
+  peekABoo = (waitingTime: number) => {
     this.setState({ isCurrentPeekABoo: true });
     setTimeout(() => {
-      let won: boolean = false;
       if (!this.peopleDetected) {
-        won = true;
+        this.score += waitingTime;
+        this.manageGame(randomInteger(1, 10000));
+      } else {
+        this.props.navigation.navigate("ScoreBoard", { score: this.score });
       }
-      this.props.navigation.navigate("ScoreBoard", { won: won });
     }, randomInteger(1, 3000));
   };
 
   manageGame = (waitingTimeBeforePeekABoo: number) => {
-    setTimeout(() => this.peekABoo(), waitingTimeBeforePeekABoo);
+    this.setState({ isCurrentPeekABoo: false });
+    setTimeout(
+      () => this.peekABoo(waitingTimeBeforePeekABoo),
+      waitingTimeBeforePeekABoo
+    );
   };
 
   componentDidMount() {
@@ -64,7 +70,12 @@ export default class Game extends Component {
           onFaceDetectionError={this.onFaceDetectionError}
           style={styles.screen}
         >
-          {isCurrentPeekABoo && <Text>Cachez vous, j'arrive</Text>}
+          <Text style={styles.score}>Score: {this.score}</Text>
+          {isCurrentPeekABoo && (
+            <View style={styles.alertBox}>
+              <Text style={styles.alertMessage}>Cachez vous, j'arrive</Text>
+            </View>
+          )}
         </RNCamera>
       </View>
     );
@@ -74,10 +85,22 @@ export default class Game extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    display: "flex",
   },
   screen: {
     flex: 1,
-    display: "flex",
+  },
+  score: {
+    textAlign: "right",
+    marginRight: 20,
+    marginTop: 20,
+    fontWeight: "bold",
+  },
+  alertBox: {
+    justifyContent: "center",
+    alignItems: "center",
+    flex: 1,
+  },
+  alertMessage: {
+    fontWeight: "bold",
   },
 });

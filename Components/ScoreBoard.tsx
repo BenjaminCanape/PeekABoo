@@ -2,12 +2,12 @@ import React from "react";
 import { StyleSheet, View, Text, Button } from "react-native";
 
 export default function ScoreBoard(props: any) {
-  let won: boolean = props.navigation.getParam("won");
+  let score: number = props.navigation.getParam("score");
 
   return (
     <View style={styles.mainContainer}>
       <View style={{ flex: 1 }}>
-        {won ? <Text>Gagné</Text> : <Text>Perdu</Text>}
+        <Text>Score: {score} </Text>
         <Button
           title="Recommencer"
           onPress={() => props.navigation.navigate("StartMenu")}
