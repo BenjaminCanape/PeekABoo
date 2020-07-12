@@ -33,14 +33,19 @@ export default class Game extends Component {
 
   peekABoo = (waitingTime: number) => {
     this.setState({ isCurrentPeekABoo: true });
+
+    if (!this.peopleDetected) {
+      this.props.navigation.navigate("ScoreBoard", { score: this.score });
+    }
+
     setTimeout(() => {
       if (!this.peopleDetected) {
         this.score += waitingTime;
-        this.manageGame(randomInteger(1, 10000));
+        this.manageGame(randomInteger(3000, 10000));
       } else {
         this.props.navigation.navigate("ScoreBoard", { score: this.score });
       }
-    }, randomInteger(1, 3000));
+    }, randomInteger(1000, 3000));
   };
 
   manageGame = (waitingTimeBeforePeekABoo: number) => {
@@ -52,7 +57,7 @@ export default class Game extends Component {
   };
 
   componentDidMount() {
-    this.manageGame(randomInteger(1, 10000));
+    this.manageGame(randomInteger(3000, 10000));
   }
 
   render() {
@@ -70,10 +75,11 @@ export default class Game extends Component {
           onFaceDetectionError={this.onFaceDetectionError}
           style={styles.screen}
         >
+          <Text>Regarder l'écran jusqu'au "BOO", ensuite cachez-vous</Text>
           <Text style={styles.score}>Score: {this.score}</Text>
           {isCurrentPeekABoo && (
             <View style={styles.alertBox}>
-              <Text style={styles.alertMessage}>Cachez vous, j'arrive</Text>
+              <Text style={styles.alertMessage}>BOOOOOOO</Text>
             </View>
           )}
         </RNCamera>
@@ -101,6 +107,6 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   alertMessage: {
-    fontWeight: "bold",
+    fontSize: 64,
   },
 });
