@@ -1,12 +1,20 @@
 import React, { Component } from "react";
 import { StyleSheet, View, Text } from "react-native";
 import { RNCamera, Face } from "react-native-camera";
+import {
+  NavigationParams,
+  NavigationScreenProp,
+  NavigationState,
+} from "react-navigation";
 
 function randomInteger(min: number, max: number) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
-export default class Game extends Component {
+export default class Game extends Component<
+  { navigation: NavigationScreenProp<NavigationState, NavigationParams> },
+  { faceDetectionEnabled: boolean; isCurrentPeekABoo: boolean }
+> {
   camera: RNCamera | null = null;
   peopleDetected: boolean = false;
   score: number = 0;
