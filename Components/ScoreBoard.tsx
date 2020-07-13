@@ -22,14 +22,12 @@ export default connect(mapStateToProps)(function ScoreBoard(props: any) {
 
   return (
     <View style={styles.mainContainer}>
-      <View style={{ flex: 1 }}>
-        <Text>Score: {score} </Text>
-        <Text>Record: {props.highScore} </Text>
-        <Button
-          title="Recommencer"
-          onPress={() => props.navigation.navigate("StartMenu")}
-        ></Button>
-      </View>
+      <Text>Score: {score} </Text>
+      <Text>Record: {props.highScore} </Text>
+      <Button
+        title="Recommencer"
+        onPress={() => props.navigation.navigate("StartMenu")}
+      ></Button>
     </View>
   );
 });

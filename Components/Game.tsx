@@ -83,13 +83,22 @@ export default class Game extends Component<
           onFaceDetectionError={this.onFaceDetectionError}
           style={styles.screen}
         >
-          <Text>Regardez l'écran jusqu'au "BOO", ensuite cachez-vous</Text>
-          <Text style={styles.score}>Score: {this.score}</Text>
-          {isCurrentPeekABoo && (
-            <View style={styles.alertBox}>
-              <Text style={styles.alertMessage}>BOOOOOOO</Text>
+          <View style={styles.printedScreen}>
+            <View style={styles.header}>
+              <Text>Regardez l'écran jusqu'au "BOO", ensuite cachez-vous</Text>
+              <Text style={styles.score}>Score: {this.score}</Text>
             </View>
-          )}
+            <View style={styles.body}>
+              <Text></Text>
+            </View>
+            <View style={styles.bottom}>
+              {isCurrentPeekABoo && (
+                <View style={styles.alertBox}>
+                  <Text style={styles.alertMessage}>BOOOOOOO</Text>
+                </View>
+              )}
+            </View>
+          </View>
         </RNCamera>
       </View>
     );
@@ -100,8 +109,22 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
+  printedScreen: {
+    flex: 1,
+    backgroundColor: "white",
+  },
   screen: {
     flex: 1,
+  },
+  header: {
+    flex: 1,
+  },
+  body: {
+    flex: 3,
+  },
+  bottom: {
+    flex: 1,
+    justifyContent: "flex-end",
   },
   score: {
     textAlign: "right",

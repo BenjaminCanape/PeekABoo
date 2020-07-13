@@ -8,14 +8,20 @@ const GameStackNavigator = createStackNavigator({
   StartMenu: {
     screen: StartMenu,
     navigationOptions: {
-      title: "Peek A Boo",
+      headerShown: false,
     },
   },
   Game: {
     screen: Game,
+    navigationOptions: {
+      headerShown: false,
+    },
   },
   ScoreBoard: {
     screen: ScoreBoard,
+    navigationOptions: {
+      headerShown: false,
+    },
   },
 });
 
