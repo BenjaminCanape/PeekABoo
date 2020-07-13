@@ -1,5 +1,6 @@
 import React from "react";
 import { StyleSheet, View, Button, Text } from "react-native";
+import I18n from "../i18n/i18n";
 
 export default function StartMenu(props: any) {
   let startGame = () => {
@@ -9,7 +10,7 @@ export default function StartMenu(props: any) {
   return (
     <View style={styles.mainContainer}>
       <Text style={styles.title}>One Boo Three</Text>
-      <Button title="Jouer" onPress={startGame}></Button>
+      <Button title={I18n.t("play")} onPress={startGame}></Button>
     </View>
   );
 }

@@ -3,6 +3,7 @@ import { StyleSheet, View, Text, Button } from "react-native";
 
 import { connect } from "react-redux";
 import { changeHighScore } from "../Stores/Reducers/highScoreReducer";
+import I18n from "../i18n/i18n";
 
 const mapStateToProps = (state: any) => {
   return { highScore: state.changeHighScore.highScore };
@@ -22,10 +23,14 @@ export default connect(mapStateToProps)(function ScoreBoard(props: any) {
 
   return (
     <View style={styles.mainContainer}>
-      <Text>Score: {score} </Text>
-      <Text>Record: {props.highScore} </Text>
+      <Text>
+        {I18n.t("score")}: {score}
+      </Text>
+      <Text>
+        {I18n.t("highScore")}: {props.highScore}
+      </Text>
       <Button
-        title="Recommencer"
+        title={I18n.t("restart")}
         onPress={() => props.navigation.navigate("StartMenu")}
       ></Button>
     </View>

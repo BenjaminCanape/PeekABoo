@@ -46,4 +46,6 @@ target 'PeekABoo' do
 
   pod 'react-native-camera', :path => '../node_modules/react-native-camera'
 
+  pod 'RNI18n', :path => '../node_modules/react-native-i18n'
+
 end

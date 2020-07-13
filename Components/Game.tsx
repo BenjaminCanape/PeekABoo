@@ -7,6 +7,8 @@ import {
   NavigationState,
 } from "react-navigation";
 
+import I18n from "../i18n/i18n";
+
 function randomInteger(min: number, max: number) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
@@ -85,8 +87,10 @@ export default class Game extends Component<
         >
           <View style={styles.printedScreen}>
             <View style={styles.header}>
-              <Text>Regardez l'écran jusqu'au "BOO", ensuite cachez-vous</Text>
-              <Text style={styles.score}>Score: {this.score}</Text>
+              <Text>{I18n.t("rule")}</Text>
+              <Text style={styles.score}>
+                {I18n.t("score")}: {this.score}
+              </Text>
             </View>
             <View style={styles.body}>
               <Text></Text>
