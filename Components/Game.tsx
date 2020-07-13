@@ -83,7 +83,7 @@ export default class Game extends Component<
           onFaceDetectionError={this.onFaceDetectionError}
           style={styles.screen}
         >
-          <Text>Regarder l'écran jusqu'au "BOO", ensuite cachez-vous</Text>
+          <Text>Regardez l'écran jusqu'au "BOO", ensuite cachez-vous</Text>
           <Text style={styles.score}>Score: {this.score}</Text>
           {isCurrentPeekABoo && (
             <View style={styles.alertBox}>
