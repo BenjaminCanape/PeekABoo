@@ -50,6 +50,7 @@ export default class Game extends Component<
   };
 
   gameOver = () => {
+    this.booSound.release();
     this.props.navigation.navigate("ScoreBoard", { score: this.score });
   };
 
@@ -84,8 +85,6 @@ export default class Game extends Component<
   componentDidMount() {
     this.manageGame(randomInteger(3000, 10000));
   }
-
-  componentWillUnmount() {}
 
   render() {
     const {
