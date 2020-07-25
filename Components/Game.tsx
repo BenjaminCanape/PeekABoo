@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { StyleSheet, View, Text } from "react-native";
+import { StyleSheet, View, Text, Image } from "react-native";
 import { RNCamera, Face } from "react-native-camera";
 import {
   NavigationParams,
@@ -17,7 +17,11 @@ function randomInteger(min: number, max: number) {
 
 export default class Game extends Component<
   { navigation: NavigationScreenProp<NavigationState, NavigationParams> },
-  { faceDetectionEnabled: boolean; isCurrentPeekABoo: boolean }
+  {
+    faceDetectionEnabled: boolean;
+    isCurrentPeekABoo: boolean;
+    monsterArrives: boolean;
+  }
 > {
   camera: RNCamera | null = null;
   peopleDetected: boolean = false;
@@ -29,6 +33,7 @@ export default class Game extends Component<
     this.state = {
       faceDetectionEnabled: false,
       isCurrentPeekABoo: false,
+      monsterArrives: false,
     };
   }
 
@@ -44,27 +49,32 @@ export default class Game extends Component<
     this.peopleDetected = false;
   };
 
+  gameOver = () => {
+    this.props.navigation.navigate("ScoreBoard", { score: this.score });
+  };
+
   peekABoo = (waitingTime: number) => {
-    this.setState({ isCurrentPeekABoo: true });
+    this.setState({ monsterArrives: true });
 
     if (!this.peopleDetected) {
-      this.props.navigation.navigate("ScoreBoard", { score: this.score });
+      setTimeout(() => this.gameOver(), 1000);
     }
 
     setTimeout(() => {
+      this.setState({ isCurrentPeekABoo: true, monsterArrives: false });
       this.booSound.play(() => {
         if (!this.peopleDetected) {
           this.score += waitingTime;
-          this.manageGame(randomInteger(3000, 10000));
+          setTimeout(() => this.manageGame(randomInteger(3000, 10000)), 5000);
         } else {
-          this.props.navigation.navigate("ScoreBoard", { score: this.score });
+          setTimeout(() => this.gameOver(), 1000);
         }
       });
-    }, randomInteger(1000, 3000));
+    }, randomInteger(2000, 4000));
   };
 
   manageGame = (waitingTimeBeforePeekABoo: number) => {
-    this.setState({ isCurrentPeekABoo: false });
+    this.setState({ isCurrentPeekABoo: false, monsterArrives: false });
     setTimeout(
       () => this.peekABoo(waitingTimeBeforePeekABoo),
       waitingTimeBeforePeekABoo
@@ -75,8 +85,14 @@ export default class Game extends Component<
     this.manageGame(randomInteger(3000, 10000));
   }
 
+  componentWillUnmount() {}
+
   render() {
-    const { faceDetectionEnabled, isCurrentPeekABoo } = this.state;
+    const {
+      faceDetectionEnabled,
+      isCurrentPeekABoo,
+      monsterArrives,
+    } = this.state;
     return (
       <View style={styles.container}>
         <RNCamera
@@ -98,12 +114,27 @@ export default class Game extends Component<
               </Text>
             </View>
             <View style={styles.body}>
-              <Text></Text>
+              {isCurrentPeekABoo ? (
+                <Image
+                  style={styles.monsterPicture}
+                  source={require("../assets/monster_landscape.png")}
+                ></Image>
+              ) : (
+                <Image
+                  style={styles.monsterPicture}
+                  source={require("../assets/landscape.png")}
+                ></Image>
+              )}
             </View>
             <View style={styles.bottom}>
+              {monsterArrives && (
+                <View style={styles.alertBox}>
+                  <Text style={styles.alertMessage}>{I18n.t("arrives")}</Text>
+                </View>
+              )}
               {isCurrentPeekABoo && (
                 <View style={styles.alertBox}>
-                  <Text style={styles.alertMessage}>BOOOOOOO</Text>
+                  <Text style={styles.alertMessage}>BOOOOO</Text>
                 </View>
               )}
             </View>
@@ -130,6 +161,8 @@ const styles = StyleSheet.create({
   },
   body: {
     flex: 3,
+    justifyContent: "center",
+    alignItems: "center",
   },
   bottom: {
     flex: 1,
@@ -148,5 +181,9 @@ const styles = StyleSheet.create({
   },
   alertMessage: {
     fontSize: 64,
+  },
+  monsterPicture: {
+    width: 350,
+    height: 400,
   },
 });

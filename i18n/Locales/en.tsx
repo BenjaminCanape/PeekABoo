@@ -3,5 +3,7 @@ export default {
   highScore: "High Score",
   play: "Play",
   restart: "Start again",
-  rule: 'Watch the phone until you see "BOO", then hide yourself',
+  rule:
+    "Watch the phone until you see that the monster comes, then hide yourself",
+  arrives: "I Come",
 };
