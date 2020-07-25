@@ -9,6 +9,8 @@ import {
 
 import I18n from "../i18n/i18n";
 
+import Sound from "react-native-sound";
+
 function randomInteger(min: number, max: number) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
@@ -20,6 +22,7 @@ export default class Game extends Component<
   camera: RNCamera | null = null;
   peopleDetected: boolean = false;
   score: number = 0;
+  booSound: Sound = new Sound("boo.mp3");
 
   constructor(props: any) {
     super(props);
@@ -49,12 +52,14 @@ export default class Game extends Component<
     }
 
     setTimeout(() => {
-      if (!this.peopleDetected) {
-        this.score += waitingTime;
-        this.manageGame(randomInteger(3000, 10000));
-      } else {
-        this.props.navigation.navigate("ScoreBoard", { score: this.score });
-      }
+      this.booSound.play(() => {
+        if (!this.peopleDetected) {
+          this.score += waitingTime;
+          this.manageGame(randomInteger(3000, 10000));
+        } else {
+          this.props.navigation.navigate("ScoreBoard", { score: this.score });
+        }
+      });
     }, randomInteger(1000, 3000));
   };
 
