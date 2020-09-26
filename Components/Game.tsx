@@ -97,7 +97,6 @@ export default class Game extends Component<
         <RNCamera
           ref={(ref: RNCamera) => (this.camera = ref)}
           type={RNCamera.Constants.Type.front}
-          faceDetectionMode={RNCamera.Constants.FaceDetection.Mode.fast}
           onCameraReady={this.cameraReady}
           onFacesDetected={
             faceDetectionEnabled ? this.onFacesDetected : undefined
